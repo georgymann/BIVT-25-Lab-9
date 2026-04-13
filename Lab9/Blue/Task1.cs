@@ -6,7 +6,12 @@ namespace Lab9.Blue
         public string[] Output { get; protected set; }
         public override void Review()
         {
-            var words = Input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (Input == null)
+            {
+                Output = null;
+                return;
+            }
+            string[] words = Input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             string current = "";
             int count = 0;
             foreach (var i in words)
@@ -26,6 +31,7 @@ namespace Lab9.Blue
                 }
             }
             if (current.Length > 0) count++;
+            
             Output = new string[count];
             int ind = 0;
             current = "";
@@ -33,7 +39,7 @@ namespace Lab9.Blue
             {
                 if (current.Length == 0)
                 {
-                    current = i;
+                    current += i;
                 }
                 else if (current.Length + 1 + i.Length <= 50)
                 {
@@ -45,7 +51,6 @@ namespace Lab9.Blue
                     current = i;
                 }
             }
-
             if (current.Length > 0) Output[ind] = current;
         }
         public override string ToString()
